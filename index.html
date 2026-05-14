@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presidencia Municipal — Gómez Palacio, Durango</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --guinda: #6B1A35;
+      --guinda-oscuro: #4A0F22;
+      --guinda-medio: #8B2242;
+      --guinda-claro: #C2456A;
+      --guinda-suave: #F5E8ED;
+      --dorado: #C9A84C;
+      --dorado-claro: #E8D5A0;
+      --crema: #FAF6F1;
+      --gris: #F0EBEA;
+      --gris-texto: #2D2D2D;
+      --blanco: #FFFFFF;
+      --borde: rgba(107,26,53,0.12);
+      --sombra: 0 4px 24px rgba(107,26,53,0.1);
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:"Mulish",sans-serif;background:var(--crema);color:var(--gris-texto);overflow-x:hidden;}
+
+    .page{display:none;min-height:100vh;}
+    .page.active{display:block;}
+
+    /* HEADER */
+    .site-header{
+      background:var(--guinda-oscuro);padding:0 1.5rem;height:64px;display:flex;
+      align-items:center;justify-content:space-between;position:sticky;top:0;z-index:1000;
+      border-bottom:3px solid var(--dorado);box-shadow:0 2px 20px rgba(0,0,0,0.3);
+    }
+    .header-brand{display:flex;align-items:center;gap:0.9rem;cursor:pointer;}
+    .header-brand-text strong{display:block;font-family:"Playfair Display",serif;color:var(--blanco);font-size:0.95rem;}
+    .header-brand-text span{font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--dorado-claro);}
+    .header-right{display:flex;align-items:center;gap:0.5rem;}
+    .site-nav{display:flex;gap:0.15rem;flex-wrap:wrap;}
+    .site-nav button{
+      background:transparent;border:1px solid transparent;color:rgba(255,255,255,0.8);
+      padding:0.35rem 0.65rem;border-radius:5px;font-family:"Mulish",sans-serif;
+      font-size:0.7rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;
+      cursor:pointer;transition:all 0.2s;
+    }
+    .site-nav button:hover,.site-nav button.active{
+      background:var(--guinda-medio);border-color:var(--guinda-claro);color:var(--blanco);
+    }
+
+    /* MENÚ PANEL */
+    .menu-btn{
+      background:var(--dorado);color:var(--guinda-oscuro);border:none;
+      padding:0.4rem 0.75rem;border-radius:5px;font-family:"Mulish",sans-serif;
+      font-size:0.7rem;font-weight:800;cursor:pointer;transition:all 0.2s;
+      letter-spacing:0.5px;text-transform:uppercase;display:flex;align-items:center;gap:0.35rem;
+      margin-left:0.4rem;
+    }
+    .menu-btn:hover{background:var(--dorado-claro);}
+    .menu-panel{
+      display:none;position:fixed;top:67px;right:0;width:300px;
+      background:var(--guinda-oscuro);border-left:3px solid var(--dorado);
+      border-bottom:3px solid var(--dorado);box-shadow:-4px 4px 24px rgba(0,0,0,0.4);
+      z-index:2000;border-radius:0 0 0 12px;overflow:hidden;max-height:calc(100vh - 70px);overflow-y:auto;
+    }
+    .menu-panel.abierto{display:block;}
+    .menu-panel-header{
+      background:rgba(0,0,0,0.3);padding:0.8rem 1.2rem;
+      font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;
+      color:var(--dorado-claro);border-bottom:1px solid rgba(255,255,255,0.08);
+      display:flex;justify-content:space-between;align-items:center;
+    }
+    .menu-cerrar{background:none;border:none;color:rgba(255,255,255,0.5);font-size:1.1rem;cursor:pointer;padding:0;}
+    .menu-cerrar:hover{color:var(--blanco);}
+    .menu-seccion{padding:0.6rem 0;}
+    .menu-seccion-titulo{
+      font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;
+      color:var(--dorado);padding:0.5rem 1.2rem 0.3rem;font-weight:700;
+    }
+    .menu-link{
+      display:flex;align-items:center;gap:0.7rem;width:100%;
+      background:none;border:none;padding:0.55rem 1.2rem;
+      color:rgba(255,255,255,0.82);font-family:"Mulish",sans-serif;
+      font-size:0.81rem;font-weight:500;cursor:pointer;text-align:left;
+      transition:all 0.15s;text-decoration:none;
+    }
+    .menu-link:hover{background:rgba(255,255,255,0.08);color:var(--dorado-claro);}
+    .menu-link-icon{font-size:1rem;width:20px;text-align:center;flex-shrink:0;}
+    .menu-sep{height:1px;background:rgba(255,255,255,0.08);margin:0.2rem 0;}
+    .menu-externo{color:rgba(255,255,255,0.35);font-size:0.68rem;margin-left:auto;}
+
+    /* PANEL DE LINKS */
+    .links-btn{
+      background:rgba(255,255,255,0.12);color:var(--blanco);border:1px solid rgba(255,255,255,0.25);
+      padding:0.4rem 0.75rem;border-radius:5px;font-family:"Mulish",sans-serif;
+      font-size:0.7rem;font-weight:700;cursor:pointer;transition:all 0.2s;
+      letter-spacing:0.5px;text-transform:uppercase;display:flex;align-items:center;gap:0.4rem;
+    }
+    .links-btn:hover,.links-btn.activo{background:rgba(255,255,255,0.22);border-color:rgba(255,255,255,0.5);}
+    .links-btn .links-icon{font-size:0.85rem;}
+
+    .links-panel{
+      display:none;position:fixed;top:67px;right:0;width:340px;
+      background:var(--guinda-oscuro);border-left:3px solid var(--dorado);
+      border-bottom:3px solid var(--dorado);box-shadow:-4px 4px 30px rgba(0,0,0,0.5);
+      z-index:3000;border-radius:0 0 0 14px;overflow:hidden;
+      max-height:calc(100vh - 70px);overflow-y:auto;
+    }
+    .links-panel.abierto{display:block;}
+
+    .links-panel-header{
+      background:linear-gradient(135deg,rgba(0,0,0,0.4),rgba(0,0,0,0.2));
+      padding:1rem 1.3rem;border-bottom:1px solid rgba(255,255,255,0.1);
+      display:flex;justify-content:space-between;align-items:center;
+    }
+    .links-panel-header-left{display:flex;align-items:center;gap:0.6rem;}
+    .links-panel-header-icon{
+      width:32px;height:32px;background:var(--dorado);border-radius:6px;
+      display:flex;align-items:center;justify-content:center;font-size:0.9rem;
+    }
+    .links-panel-titulo{font-family:"Playfair Display",serif;color:var(--blanco);font-size:0.95rem;}
+    .links-panel-sub{font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--dorado-claro);}
+    .links-cerrar{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);
+      color:rgba(255,255,255,0.7);width:28px;height:28px;border-radius:5px;
+      cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+    .links-cerrar:hover{background:rgba(255,255,255,0.2);color:var(--blanco);}
+
+    .links-buscar{padding:0.8rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.08);}
+    .links-buscar input{
+      width:100%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);
+      border-radius:6px;padding:0.5rem 0.8rem;color:var(--blanco);
+      font-family:"Mulish",sans-serif;font-size:0.8rem;outline:none;transition:all 0.2s;
+    }
+    .links-buscar input::placeholder{color:rgba(255,255,255,0.35);}
+    .links-buscar input:focus{border-color:var(--dorado);background:rgba(255,255,255,0.12);}
+
+    .links-grupo{padding:0.5rem 0;}
+    .links-grupo-titulo{
+      font-size:0.58rem;letter-spacing:2.5px;text-transform:uppercase;
+      color:var(--dorado);padding:0.6rem 1.2rem 0.35rem;font-weight:700;
+      display:flex;align-items:center;gap:0.5rem;
+    }
+    .links-grupo-titulo::after{content:"";flex:1;height:1px;background:rgba(201,168,76,0.25);}
+
+    .link-item{
+      display:flex;align-items:center;gap:0.75rem;width:100%;
+      background:none;border:none;padding:0.6rem 1.2rem;
+      color:rgba(255,255,255,0.8);font-family:"Mulish",sans-serif;
+      font-size:0.8rem;font-weight:500;cursor:pointer;text-align:left;
+      transition:all 0.15s;text-decoration:none;
+      border-left:3px solid transparent;
+    }
+    .link-item:hover{
+      background:rgba(255,255,255,0.07);color:var(--blanco);
+      border-left-color:var(--dorado);
+    }
+    .link-item.externo:hover{border-left-color:var(--guinda-claro);}
+    .link-item-icon{
+      width:30px;height:30px;border-radius:6px;
+      display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;
+    }
+    .li-guinda{background:rgba(107,26,53,0.6);}
+    .li-dorado{background:rgba(201,168,76,0.2);}
+    .li-verde{background:rgba(26,122,74,0.4);}
+    .li-azul{background:rgba(26,74,122,0.4);}
+    .li-morado{background:rgba(107,79,160,0.4);}
+    .li-gris{background:rgba(255,255,255,0.1);}
+    .link-item-info{flex:1;min-width:0;}
+    .link-item-nombre{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .link-item-url{display:block;font-size:0.68rem;color:rgba(255,255,255,0.35);
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:0.1rem;}
+    .link-item-badge{
+      font-size:0.58rem;font-weight:700;padding:0.15rem 0.4rem;border-radius:3px;
+      letter-spacing:0.5px;text-transform:uppercase;flex-shrink:0;
+    }
+    .badge-ext{background:rgba(194,69,106,0.3);color:var(--guinda-claro);}
+    .badge-int{background:rgba(201,168,76,0.2);color:var(--dorado);}
+    .links-footer{
+      padding:0.8rem 1.2rem;border-top:1px solid rgba(255,255,255,0.08);
+      font-size:0.7rem;color:rgba(255,255,255,0.3);text-align:center;
+    }
+    .link-no-result{padding:1.5rem 1.2rem;text-align:center;color:rgba(255,255,255,0.3);font-size:0.82rem;display:none;}
+
+    /* HERO */
+    .hero{
+      background:linear-gradient(135deg,var(--guinda-oscuro) 0%,var(--guinda) 60%,var(--guinda-medio) 100%);
+      padding:5rem 2rem 6rem;text-align:center;position:relative;overflow:hidden;
+    }
+    .hero::before{content:"";position:absolute;top:-80px;right:-80px;width:350px;height:350px;border-radius:50%;background:rgba(201,168,76,0.07);}
+    .hero::after{content:"";position:absolute;bottom:-60px;left:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,0.04);}
+    .hero-eyebrow{font-size:0.68rem;letter-spacing:4px;text-transform:uppercase;color:var(--dorado-claro);margin-bottom:0.8rem;}
+    .hero h1{font-family:"Playfair Display",serif;font-size:clamp(2rem,5vw,3.8rem);color:var(--blanco);font-weight:900;line-height:1.15;margin-bottom:1rem;}
+    .hero h1 em{color:var(--dorado-claro);font-style:normal;}
+    .hero-sub{color:rgba(255,255,255,0.82);font-size:1rem;max-width:540px;margin:0 auto 2.5rem;line-height:1.75;}
+    .hero-divider{width:60px;height:2px;background:var(--dorado);margin:0 auto 1.5rem;}
+    .hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+    .btn-blanco{background:var(--blanco);color:var(--guinda-oscuro);border:none;padding:0.85rem 1.8rem;border-radius:5px;font-family:"Mulish",sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer;transition:all 0.25s;letter-spacing:0.5px;}
+    .btn-blanco:hover{background:var(--dorado-claro);transform:translateY(-2px);}
+    .btn-outline{background:rgba(255,255,255,0.08);color:var(--blanco);border:1px solid rgba(255,255,255,0.3);padding:0.85rem 1.8rem;border-radius:5px;font-family:"Mulish",sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer;transition:all 0.25s;}
+    .btn-outline:hover{background:rgba(255,255,255,0.18);}
+
+    /* BANDA TEL */
+    .banda-tel{background:var(--gris);border-bottom:1px solid var(--borde);display:grid;grid-template-columns:1fr 1fr;}
+    .tel-item{display:flex;align-items:center;gap:1rem;padding:1.2rem 2rem;border-right:1px solid var(--borde);}
+    .tel-item:last-child{border:none;}
+    .tel-icono{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+    .tel-icono.guinda{background:var(--guinda);color:var(--blanco);}
+    .tel-icono.morado{background:#6B4FA0;color:var(--blanco);}
+    .tel-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:0.15rem;}
+    .tel-num{font-size:1.1rem;font-weight:700;color:var(--guinda-oscuro);}
+
+    /* SECCIONES */
+    .seccion{max-width:1100px;margin:0 auto;padding:4rem 1.5rem;}
+    .seccion-eyebrow{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--guinda);margin-bottom:0.4rem;}
+    .seccion-titulo{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--guinda-oscuro);margin-bottom:0.5rem;}
+    .seccion-divider{width:50px;height:2px;background:var(--dorado);margin-bottom:2rem;}
+    .seccion-desc{color:#666;font-size:0.95rem;max-width:600px;line-height:1.75;margin-bottom:2.5rem;}
+
+    /* CARDS DEPARTAMENTOS */
+    .grid-depto{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.4rem;}
+    .depto-card{background:var(--blanco);border:1px solid var(--borde);border-radius:12px;overflow:hidden;transition:all 0.3s;cursor:pointer;}
+    .depto-card:hover{border-color:var(--guinda-claro);box-shadow:0 8px 30px rgba(107,26,53,0.12);transform:translateY(-3px);}
+    .depto-card-header{background:var(--guinda);padding:1.1rem 1.3rem;display:flex;align-items:center;gap:0.9rem;}
+    /* Variante rosa/violeta para Instituto de la Mujer */
+    .depto-card-header.mujer{background:linear-gradient(135deg,#8B2252,#B5396A);}
+    .depto-icon{width:44px;height:44px;border-radius:8px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+    .depto-nombre{font-weight:700;font-size:0.95rem;color:var(--blanco);line-height:1.3;}
+    .depto-card-body{padding:1.2rem;}
+    .depto-desc{font-size:0.83rem;color:#555;line-height:1.6;margin-bottom:1rem;}
+    .depto-info-row{display:flex;align-items:flex-start;gap:0.5rem;font-size:0.78rem;color:#666;margin-bottom:0.4rem;}
+    .depto-info-row span:first-child{flex-shrink:0;font-size:1rem;}
+    .depto-horario{display:inline-block;background:var(--guinda-suave);color:var(--guinda);font-size:0.68rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:3px;letter-spacing:0.5px;text-transform:uppercase;margin-top:0.5rem;}
+    .depto-horario.mujer{background:#FDEEF5;color:#8B2252;}
+
+    /* CAT HEADER */
+    .cat-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem;margin-top:2.5rem;}
+    .cat-header:first-child{margin-top:0;}
+    .cat-titulo{font-family:"Playfair Display",serif;font-size:1.3rem;color:var(--guinda-oscuro);white-space:nowrap;}
+    .cat-linea{flex:1;height:1px;background:var(--borde);}
+    .cat-count{font-size:0.75rem;color:#999;}
+
+    /* PAGE HERO */
+    .page-hero{background:linear-gradient(135deg,var(--guinda-oscuro),var(--guinda));padding:3.5rem 2rem;color:var(--blanco);}
+    .page-hero-eyebrow{font-size:0.65rem;letter-spacing:4px;text-transform:uppercase;color:var(--dorado-claro);margin-bottom:0.5rem;}
+    .page-hero h1{font-family:"Playfair Display",serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:700;}
+    .page-hero p{margin-top:0.8rem;color:rgba(255,255,255,0.82);max-width:560px;font-size:0.95rem;line-height:1.7;}
+
+    /* FILTRO */
+    .filtro-bar{background:var(--blanco);padding:1rem 1.5rem;display:flex;flex-wrap:wrap;gap:0.5rem;border-bottom:2px solid var(--guinda-suave);position:sticky;top:64px;z-index:90;box-shadow:0 2px 12px rgba(107,26,53,0.06);}
+    .filtro-btn{background:var(--guinda-suave);border:1px solid rgba(107,26,53,0.2);color:var(--guinda);padding:0.4rem 1rem;border-radius:20px;font-family:"Mulish",sans-serif;font-size:0.75rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+    .filtro-btn:hover,.filtro-btn.activo{background:var(--guinda);color:var(--blanco);border-color:var(--guinda);}
+
+    /* TRAMITES */
+    .tramites-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.4rem;}
+    .tramite-card{background:var(--blanco);border-radius:12px;overflow:hidden;border:1px solid var(--borde);box-shadow:0 2px 12px rgba(107,26,53,0.05);transition:all 0.3s;}
+    .tramite-card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(107,26,53,0.12);}
+    .tramite-card.oculta{display:none;}
+    .tramite-header-btn{background:var(--guinda);padding:1.1rem 1.3rem;display:flex;align-items:center;gap:0.8rem;cursor:pointer;width:100%;border:none;text-align:left;}
+    .tramite-header-btn.federal{background:linear-gradient(135deg,#1A4A7A,#2563AB);}
+    .tramite-icono{font-size:1.6rem;width:40px;height:40px;background:rgba(255,255,255,0.12);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .tramite-nombre{font-family:"Playfair Display",serif;color:var(--blanco);font-size:0.98rem;flex:1;}
+    .tramite-arrow{color:rgba(255,255,255,0.7);font-size:1rem;transition:transform 0.3s;}
+    .tramite-card.abierta .tramite-arrow{transform:rotate(180deg);}
+    .tramite-body{display:none;padding:1.4rem;}
+    .tramite-card.abierta .tramite-body{display:block;}
+    .tramite-tag{display:inline-block;background:var(--guinda-suave);color:var(--guinda);font-size:0.66rem;font-weight:700;padding:0.18rem 0.55rem;border-radius:3px;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.8rem;}
+    .tramite-tag.federal{background:#E8F0FA;color:#1A4A7A;}
+    .costo-badge{display:inline-block;background:var(--dorado);color:var(--guinda-oscuro);font-size:0.68rem;font-weight:700;padding:0.18rem 0.55rem;border-radius:3px;margin-left:0.4rem;}
+    .tramite-intro{font-size:0.86rem;line-height:1.7;margin-bottom:1rem;color:#444;}
+    .docs-box{background:var(--crema);border-radius:7px;padding:0.9rem 1.1rem;margin:0.8rem 0;}
+    .docs-box-titulo{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--guinda);margin-bottom:0.5rem;}
+    .docs-box ul{list-style:none;}
+    .docs-box li{font-size:0.83rem;padding:0.2rem 0;border-bottom:1px solid rgba(107,26,53,0.07);display:flex;gap:0.5rem;}
+    .docs-box li:last-child{border:none;}
+    .docs-box li::before{content:"✓";color:var(--guinda);font-weight:700;}
+    .pasos-titulo{font-weight:700;color:var(--guinda-oscuro);font-size:0.8rem;margin:1rem 0 0.6rem;text-transform:uppercase;letter-spacing:0.5px;}
+    .paso{display:flex;gap:0.7rem;margin-bottom:0.7rem;align-items:flex-start;}
+    .paso-num{background:var(--guinda);color:var(--blanco);min-width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.68rem;font-weight:700;flex-shrink:0;margin-top:3px;}
+    .paso-num.azul{background:#1A4A7A;}
+    .paso p{font-size:0.85rem;line-height:1.6;}
+    .paso p strong{color:var(--guinda);}
+    .tip-box{background:linear-gradient(135deg,var(--guinda-suave),var(--crema));border-left:3px solid var(--guinda);border-radius:0 6px 6px 0;padding:0.75rem 1rem;margin-top:1rem;font-size:0.81rem;line-height:1.6;}
+    .tip-box strong{color:var(--guinda);}
+    .tip-box.azul{background:linear-gradient(135deg,#E8F0FA,#F0F5FF);border-left-color:#1A4A7A;}
+    .tip-box.azul strong{color:#1A4A7A;}
+    .link-oficial{display:inline-flex;align-items:center;gap:0.4rem;background:var(--guinda);color:var(--blanco);padding:0.55rem 1.1rem;border-radius:4px;font-size:0.76rem;font-weight:700;text-decoration:none;margin-top:1rem;transition:all 0.2s;letter-spacing:0.5px;cursor:pointer;border:none;}
+    .link-oficial:hover{background:var(--guinda-claro);}
+    .link-oficial.azul{background:#1A4A7A;}
+    .link-oficial.azul:hover{background:#2563AB;}
+
+    /* CONTACTO */
+    .contacto-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;margin-bottom:1.5rem;}
+    .contacto-card{background:var(--blanco);border:1px solid var(--borde);border-radius:10px;padding:2rem;transition:all 0.3s;text-decoration:none;color:inherit;display:block;}
+    .contacto-card:hover{border-color:var(--guinda);box-shadow:0 12px 40px rgba(107,26,53,0.15);transform:translateY(-3px);}
+    .contacto-icono{width:48px;height:48px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.2rem;}
+    .ci-guinda{background:var(--guinda);color:var(--blanco);}
+    .ci-morado{background:#6B4FA0;color:var(--blanco);}
+    .ci-verde{background:#1A7A4A;color:var(--blanco);}
+    .ci-azul{background:#1A4A7A;color:var(--blanco);}
+    .contacto-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:0.3rem;}
+    .contacto-num{font-size:1.6rem;font-weight:700;color:var(--guinda-oscuro);}
+    .contacto-desc{font-size:0.82rem;color:#666;margin-top:0.5rem;}
+    .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+    .info-card{background:var(--gris);border:1px solid var(--borde);border-radius:10px;padding:1.4rem;}
+    .info-card-titulo{font-weight:700;color:var(--guinda-oscuro);font-size:0.9rem;margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem;}
+    .info-card p{font-size:0.85rem;color:#555;line-height:1.6;}
+
+    /* UBICACIONES */
+    .ubi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.5rem;}
+    .ubi-card{background:var(--blanco);border:1px solid var(--borde);border-radius:12px;overflow:hidden;transition:all 0.3s;}
+    .ubi-card:hover{box-shadow:0 8px 30px rgba(107,26,53,0.12);transform:translateY(-2px);}
+    .ubi-card-top{background:linear-gradient(135deg,var(--guinda-oscuro),var(--guinda));padding:1.4rem;color:var(--blanco);}
+    .ubi-nombre{font-family:"Playfair Display",serif;font-size:1.1rem;font-weight:700;margin-bottom:0.3rem;}
+    .ubi-tipo{font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--dorado-claro);}
+    .ubi-card-body{padding:1.3rem;}
+    .ubi-row{display:flex;gap:0.6rem;align-items:flex-start;font-size:0.83rem;color:#555;margin-bottom:0.6rem;line-height:1.5;}
+    .ubi-row-icon{font-size:1rem;flex-shrink:0;margin-top:0.1rem;}
+    .ubi-mapa-btn{display:block;width:100%;margin-top:1rem;background:var(--guinda-suave);color:var(--guinda);border:1px solid rgba(107,26,53,0.2);padding:0.6rem;border-radius:6px;font-family:"Mulish",sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;text-align:center;transition:all 0.2s;text-decoration:none;}
+    .ubi-mapa-btn:hover{background:var(--guinda);color:var(--blanco);}
+    .mapa-embed{width:100%;height:220px;border:none;border-radius:0 0 12px 12px;display:block;}
+
+    /* NOTICIAS */
+    .noticias-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.4rem;}
+    .noticia-card{background:var(--blanco);border:1px solid var(--borde);border-radius:12px;overflow:hidden;transition:all 0.3s;}
+    .noticia-card:hover{box-shadow:0 8px 30px rgba(107,26,53,0.12);transform:translateY(-2px);}
+    .noticia-img{width:100%;height:160px;object-fit:cover;background:linear-gradient(135deg,var(--guinda-suave),var(--gris));display:flex;align-items:center;justify-content:center;font-size:3rem;}
+    .noticia-body{padding:1.2rem;}
+    .noticia-fecha{font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--guinda);margin-bottom:0.4rem;}
+    .noticia-titulo{font-family:"Playfair Display",serif;font-size:1rem;color:var(--guinda-oscuro);margin-bottom:0.5rem;line-height:1.4;}
+    .noticia-desc{font-size:0.82rem;color:#666;line-height:1.55;}
+
+    /* TRANSPARENCIA */
+    .trans-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem;}
+    .trans-card{background:var(--blanco);border:1px solid var(--borde);border-radius:10px;padding:1.4rem;transition:all 0.3s;cursor:pointer;}
+    .trans-card:hover{border-color:var(--guinda);box-shadow:var(--sombra);}
+    .trans-icono{font-size:2rem;margin-bottom:0.8rem;}
+    .trans-titulo{font-weight:700;color:var(--guinda-oscuro);font-size:0.92rem;margin-bottom:0.3rem;}
+    .trans-desc{font-size:0.8rem;color:#666;line-height:1.5;}
+    .trans-link{font-size:0.75rem;color:var(--guinda);font-weight:700;margin-top:0.6rem;display:flex;align-items:center;gap:0.3rem;}
+
+    /* FOOTER */
+    .site-footer{background:var(--guinda-oscuro);color:var(--blanco);padding:3rem 2rem 1.5rem;}
+    .footer-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:2.5rem;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:1.5rem;}
+    .footer-brand{display:flex;align-items:center;gap:0.8rem;margin-bottom:1rem;}
+    .footer-brand-text strong{display:block;font-family:"Playfair Display",serif;font-size:0.9rem;color:var(--blanco);}
+    .footer-brand-text span{font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--dorado-claro);}
+    .footer-desc{font-size:0.8rem;opacity:0.6;line-height:1.7;}
+    .footer-col h4{font-family:"Playfair Display",serif;font-size:0.9rem;color:var(--dorado-claro);margin-bottom:0.8rem;}
+    .footer-col ul{list-style:none;}
+    .footer-col li{margin-bottom:0.4rem;}
+    .footer-col li button{background:none;border:none;color:rgba(255,255,255,0.6);font-family:"Mulish",sans-serif;font-size:0.8rem;cursor:pointer;transition:color 0.2s;padding:0;text-align:left;}
+    .footer-col li button:hover{color:var(--dorado-claro);}
+    .footer-bottom{text-align:center;font-size:0.72rem;color:rgba(255,255,255,0.35);max-width:1100px;margin:0 auto;}
+
+    /* DESTACADOS INICIO */
+    .destacados-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.2rem;margin-bottom:3rem;}
+    .dest-card{background:var(--blanco);border:1px solid var(--borde);border-radius:10px;padding:1.4rem;transition:all 0.3s;cursor:pointer;}
+    .dest-card:hover{border-color:var(--guinda-claro);box-shadow:var(--sombra);transform:translateY(-3px);}
+    .dest-icono{width:44px;height:44px;background:var(--guinda-suave);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1rem;transition:all 0.3s;}
+    .dest-card:hover .dest-icono{background:var(--guinda);color:var(--blanco);}
+    .dest-nombre{font-weight:700;color:var(--guinda-oscuro);font-size:0.92rem;margin-bottom:0.3rem;}
+    .dest-desc{font-size:0.8rem;color:#666;line-height:1.5;}
+
+    /* ALERTA */
+    .alerta-banner{background:linear-gradient(90deg,var(--dorado),#e6c14a);padding:0.6rem 1.5rem;text-align:center;font-size:0.8rem;font-weight:700;color:var(--guinda-oscuro);}
+
+    /* OVERLAY */
+    .overlay{display:none;position:fixed;inset:0;z-index:2500;background:transparent;}
+    .overlay.activo{display:block;}
+
+    /* BADGE FEDERAL */
+    .badge-federal{display:inline-block;background:#1A4A7A;color:#fff;font-size:0.62rem;font-weight:700;padding:0.15rem 0.5rem;border-radius:3px;letter-spacing:0.5px;text-transform:uppercase;margin-left:0.4rem;vertical-align:middle;}
+
+    @media(max-width:768px){
+      .site-nav{display:none;}
+      .banda-tel{grid-template-columns:1fr;}
+      .footer-grid{grid-template-columns:1fr 1fr;}
+      .info-grid{grid-template-columns:1fr;}
+      .ubi-grid{grid-template-columns:1fr;}
+    }
+    @media(max-width:480px){
+      .footer-grid{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-brand" onclick="irA('inicio')">
+    <div style="width:42px;height:42px;background:var(--dorado);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;">🏛️</div>
+    <div class="header-brand-text">
+      <strong>Presidencia Municipal</strong>
+      <span>Gómez Palacio, Durango</span>
+    </div>
+  </div>
+  <div class="header-right">
+    <nav class="site-nav">
+      <button onclick="irA('inicio')" class="active" id="nav-inicio">Inicio</button>
+      <button onclick="irA('departamentos')" id="nav-departamentos">Dependencias</button>
+      <button onclick="irA('tramites')" id="nav-tramites">Trámites</button>
+      <button onclick="irA('ubicaciones')" id="nav-ubicaciones">Ubicaciones</button>
+      <button onclick="irA('noticias')" id="nav-noticias">Noticias</button>
+      <button onclick="irA('transparencia')" id="nav-transparencia">Transparencia</button>
+      <button onclick="irA('contacto')" id="nav-contacto">Contacto</button>
+    </nav>
+    <button class="links-btn" id="links-toggle-btn" onclick="toggleLinks()" title="Directorio de enlaces">
+      <span class="links-icon">🔗</span> Links
+    </button>
+  </div>
+</header>
+
+<div class="overlay" id="links-overlay" onclick="cerrarLinks()"></div>
+
+<!-- PANEL DE LINKS -->
+<div class="links-panel" id="links-panel">
+  <div class="links-panel-header">
+    <div class="links-panel-header-left">
+      <div class="links-panel-header-icon">🔗</div>
+      <div>
+        <div class="links-panel-titulo">Directorio de Enlaces</div>
+        <div class="links-panel-sub">Municipio de Gómez Palacio</div>
+      </div>
+    </div>
+    <button class="links-cerrar" onclick="cerrarLinks()">✕</button>
+  </div>
+
+  <div class="links-buscar">
+    <input type="text" id="links-search" placeholder="🔍  Buscar enlace..." oninput="filtrarLinks(this.value)">
+  </div>
+
+  <div id="links-contenido">
+
+    <div class="links-grupo" data-grupo>
+      <div class="links-grupo-titulo">Portales Institucionales</div>
+      <a class="link-item externo" href="https://www.gomezpalacio.gob.mx" target="_blank" data-nombre="Portal Municipal Oficial">
+        <div class="link-item-icon li-guinda">🏛️</div>
+        <div class="link-item-info"><span class="link-item-nombre">Portal Municipal Oficial</span><span class="link-item-url">gomezpalacio.gob.mx</span></div>
+        <span class="link-item-badge badge-ext">↗</span>
+      </a>
+      <a class="link-item externo" href="https://www.durango.gob.mx" target="_blank" data-nombre="Gobierno del Estado de Durango">
+        <div class="link-item-icon li-guinda">🏢</div>
+        <div class="link-item-info"><span class="link-item-nombre">Gobierno del Estado de Durango</span><span class="link-item-url">durango.gob.mx</span></div>
+        <span class="link-item-badge badge-ext">↗</span>
+      </a>
+      <a class="link-item externo" href="https://www.gob.mx" target="_blank" data-nombre="Gobierno Federal">
+        <div class="link-item-icon li-guinda">🇲🇽</div>
+        <div class="link-item-info"><span class="link-item-nombre">Gobierno Federal México</span><span class="link-item-url">gob.mx</span></div>
+        <span class="link-item-badge badge-ext">↗</span>
+      </a>
+    </div>
+
+    <div class="links-grupo" data-grupo>
+      <div class="links-grupo-titulo">Trámites en Línea</div>
+      <a class="link-item externo" href="https://www.gomezpalacio.gob.mx/predial" target="_blank" data-nombre="Pago de Predial en Línea">
+        <div class="link-item-icon li-dorado">💰</div>
+        <div class="link-item-info"><span class="link-item-nombre">Pago de Predial en Línea</span><span class="link-item-url">gomezpalacio.gob.mx/predial</span></div>
+        <span class="link-item-badge badge-ext">↗</span>
+      </a>
+      <a class="link-item externo" href="https://www.gob.mx/actas" target="_blank" data-nombre="Acta de Nacimiento Gratuita">
+        <div class="link-item-icon li-azul">📄</div>
+        <div class="link-item-info"><span class="link-item-nombre">Acta de Nacimiento Gratuita</span><span class="link-item-url">gob.mx/actas</span></div>
+        <span class="link-item-badge badge-ext">↗</span>
+      </a>
+      <a class="link-item externo" href="https://registrocivil.durango.gob.mx" target="_blank" data-nombre="Registro Civil Durango">
+        <div class="link-item-icon li-azul">📋</div>
+        <div class="link-item-info"><span class="link-item-nombre">Registro Civil Durango</span><span class="link-item-url">registrocivil.durango.gob.mx</span></div>
+        <span class="link-item-badge badge-ext">↗</span>
+      </a>
+      <a class="link-item externo" href="https://www.gob.mx/curp" target="_blank" data-nombre="Consulta de CURP en línea">
+        <div class="link-item-icon li-azul">🪪</div>
+        <div class="link-item-info"><span class="link-item-nombre">Consulta / Impresión de CURP</span><span class="link-item-url">gob.mx/curp</span></div>
+        <span class="link-item-badge badge-ext">↗</span>
+      </a>
+      <a class="link-item externo" href="https://www.sat.gob.mx/tramitesyservicios/inscripcion-al-rfc" target="_blank" data-nombre="Inscripción RFC SAT">
+        <div class="link-item-icon li-dorado">🧾</div>
+        <div class="link-item-info"><span class="link-item-nombre">Inscripción RFC – SAT</span><span class="link-item-url">sat.gob.mx</span></div>
+        <span class="link-item-badge badge-ext">↗</span>
+      </a>
+      <a class="link-item externo" href="https://www.gomezpalacio.gob.mx/reportes" target="_blank" data-nombre="Reportes Ciudadanos">
+        <div class="link-item-icon li-verde">🚧</div>
+        <div class="link-item-info"><span class="link-item-nombre">Reportes Ciudadanos</span><span class="link-item-url">gomezpalacio.gob.mx/reportes</span></div>
+        <span class="link-item-badge badge-ext">↗</span>
+      </a>
+    </div>
+
+    <div class="links-grupo" data-grupo>
+      <div class="links-grupo-titulo">Transparencia y Acceso</div>
+      <a class="link-item externo" href="https://www.plataformanacional.org.mx" target="_blank" data-nombre="Plataforma Nacional de Transparencia">
+        <div class="link-item-icon li-azul">📊</div>
+        <div class="link-item-info"><span class="link-item-nombre">Plataforma Nac. de Transparencia</span><span class="link-item-url">plataformanacional.org.mx</span></div>
+        <span class="link-item-badge badge-ext">↗</span>
+      </a>
+      <a class="link-item externo" href="https://compranet.hacienda.gob.mx" target="_blank" data-nombre="CompraNet – Licitaciones">
+        <div class="link-item-icon li-azul">📄</div>
+        <div class="link-item-info"><span class="link-item-nombre">CompraNet – Licitaciones</span><span class="link-item-url">compranet.hacienda.gob.mx</span></div>
+        <span class="link-item-badge badge-ext">↗</span>
+      </a>
+      <a class="link-item externo" href="mailto:transparencia@gomezpalacio.gob.mx" data-nombre="Correo Unidad de Transparencia">
+        <div class="link-item-icon li-gris">✉️</div>
+        <div class="link-item-info"><span class="link-item-nombre">Correo Transparencia</span><span class="link-item-url">transparencia@gomezpalacio.gob.mx</span></div>
+        <span class="link-item-badge badge-ext">↗</span>
+      </a>
+    </div>
+
+    <div class="links-grupo" data-grupo>
+      <div class="links-grupo-titulo">Redes Sociales</div>
+      <a class="link-item externo" href="https://www.facebook.com/MunicipioGomezPalacio" target="_blank" data-nombre="Facebook Municipio">
+        <div class="link-item-icon" style="background:rgba(24,119,242,0.3);">📘</div>
+        <div class="link-item-info"><span class="link-item-nombre">Facebook Oficial</span><span class="link-item-url">facebook.com/MunicipioGomezPalacio</span></div>
+        <span class="link-item-badge badge-ext">↗</span>
+      </a>
+      <a class="link-item externo" href="https://twitter.com/GomezPalacioDgo" target="_blank" data-nombre="Twitter Municipio">
+        <div class="link-item-icon" style="background:rgba(29,161,242,0.3);">🐦</div>
+        <div class="link-item-info"><span class="link-item-nombre">Twitter / X Oficial</span><span class="link-item-url">@GomezPalacioDgo</span></div>
+        <span class="link-item-badge badge-ext">↗</span>
+      </a>
+    </div>
+
+    <div class="links-grupo" data-grupo>
+      <div class="links-grupo-titulo">Aplicaciones y Servicios</div>
+      <a class="link-item externo" href="https://apps.apple.com/mx/app/gomez-palacio-conecta" target="_blank" data-nombre="App iOS Gómez Palacio Conecta">
+        <div class="link-item-icon" style="background:rgba(0,0,0,0.4);">🍎</div>
+        <div class="link-item-info"><span class="link-item-nombre">App "GP Conecta" – iOS</span><span class="link-item-url">App Store</span></div>
+        <span class="link-item-badge badge-ext">↗</span>
+      </a>
+      <a class="link-item externo" href="https://play.google.com/store/apps/details?id=mx.gomezpalacio.conecta" target="_blank" data-nombre="App Android Gómez Palacio Conecta">
+        <div class="link-item-icon" style="background:rgba(52,168,83,0.3);">▶️</div>
+        <div class="link-item-info"><span class="link-item-nombre">App "GP Conecta" – Android</span><span class="link-item-url">Google Play</span></div>
+        <span class="link-item-badge badge-ext">↗</span>
+      </a>
+    </div>
+
+    <div class="links-grupo" data-grupo>
+      <div class="links-grupo-titulo">Secciones de este Sitio</div>
+      <button class="link-item" onclick="irA('departamentos');cerrarLinks();" data-nombre="Dependencias Municipales">
+        <div class="link-item-icon li-guinda">🏛️</div>
+        <div class="link-item-info"><span class="link-item-nombre">Dependencias Municipales</span><span class="link-item-url">Directorio completo de áreas</span></div>
+        <span class="link-item-badge badge-int">▸</span>
+      </button>
+      <button class="link-item" onclick="irA('tramites');cerrarLinks();" data-nombre="Trámites y Servicios">
+        <div class="link-item-icon li-dorado">📋</div>
+        <div class="link-item-info"><span class="link-item-nombre">Trámites y Servicios</span><span class="link-item-url">Requisitos, costos y pasos</span></div>
+        <span class="link-item-badge badge-int">▸</span>
+      </button>
+      <button class="link-item" onclick="irA('ubicaciones');cerrarLinks();" data-nombre="Ubicaciones y Mapas">
+        <div class="link-item-icon li-verde">📍</div>
+        <div class="link-item-info"><span class="link-item-nombre">Ubicaciones y Mapas</span><span class="link-item-url">Oficinas y cómo llegar</span></div>
+        <span class="link-item-badge badge-int">▸</span>
+      </button>
+      <button class="link-item" onclick="irA('transparencia');cerrarLinks();" data-nombre="Transparencia">
+        <div class="link-item-icon li-azul">📊</div>
+        <div class="link-item-info"><span class="link-item-nombre">Transparencia</span><span class="link-item-url">Actas, presupuesto, contratos</span></div>
+        <span class="link-item-badge badge-int">▸</span>
+      </button>
+      <button class="link-item" onclick="irA('contacto');cerrarLinks();" data-nombre="Contacto">
+        <div class="link-item-icon li-morado">📞</div>
+        <div class="link-item-info"><span class="link-item-nombre">Contacto</span><span class="link-item-url">Teléfonos y correos oficiales</span></div>
+        <span class="link-item-badge badge-int">▸</span>
+      </button>
+    </div>
+
+    <div class="link-no-result" id="link-no-result">No se encontraron enlaces para esa búsqueda.</div>
+  </div>
+
+  <div class="links-footer">🏛️ H. Ayuntamiento de Gómez Palacio, Durango · 2025</div>
+</div>
+
+<div class="alerta-banner">📢 Horario de atención: Lunes a Viernes 8:00 – 15:00 hrs | Emergencias 24/7: 618-825-0911</div>
+
+<!-- ═══════════════════ INICIO ═══════════════════ -->
+<div id="page-inicio" class="page active">
+  <section class="hero">
+    <div class="hero-eyebrow">Gobierno Municipal 2022–2025</div>
+    <h1>Presidencia Municipal<br><em>Gómez Palacio</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">Comprometidos con el desarrollo, bienestar y progreso de las familias gomezpalatinas. Transparencia, servicio y resultados.</p>
+    <div class="hero-btns">
+      <button class="btn-blanco" onclick="irA('tramites')">📋 Trámites en Línea</button>
+      <button class="btn-outline" onclick="irA('ubicaciones')">📍 Dónde Estamos</button>
+    </div>
+  </section>
+
+  <div class="banda-tel">
+    <div class="tel-item">
+      <div class="tel-icono guinda">☎</div>
+      <div>
+        <div class="tel-label">Presidencia Municipal</div>
+        <div class="tel-num">618-825-0911</div>
+      </div>
+    </div>
+    <div class="tel-item">
+      <div class="tel-icono morado">🚨</div>
+      <div>
+        <div class="tel-label">Emergencias / Seguridad</div>
+        <div class="tel-num">618-825-5555</div>
+      </div>
+    </div>
+  </div>
+
+  <section class="seccion">
+    <div class="seccion-eyebrow">Servicios Destacados</div>
+    <div class="seccion-titulo">¿Qué necesitas hoy?</div>
+    <div class="seccion-divider"></div>
+    <div class="destacados-grid">
+      <div class="dest-card" onclick="irA('tramites')">
+        <div class="dest-icono">📄</div>
+        <div class="dest-nombre">Acta de Nacimiento</div>
+        <div class="dest-desc">Solicita copias certificadas en el Registro Civil. Disponible en línea.</div>
+      </div>
+      <div class="dest-card" onclick="irA('tramites')">
+        <div class="dest-icono">🏠</div>
+        <div class="dest-nombre">Licencia de Construcción</div>
+        <div class="dest-desc">Tramita tu permiso de construcción o remodelación ante la Dirección de Obras.</div>
+      </div>
+      <div class="dest-card" onclick="irA('tramites')">
+        <div class="dest-icono">🗑️</div>
+        <div class="dest-nombre">Servicios Municipales</div>
+        <div class="dest-desc">Reporta baches, alumbrado, recolección de basura y más.</div>
+      </div>
+      <div class="dest-card" onclick="irA('tramites')">
+        <div class="dest-icono">💰</div>
+        <div class="dest-nombre">Pago de Predial</div>
+        <div class="dest-desc">Realiza tu pago anual con descuento si lo haces en enero o febrero.</div>
+      </div>
+      <div class="dest-card" onclick="irA('tramites')">
+        <div class="dest-icono">🐕</div>
+        <div class="dest-nombre">Registro de Mascotas</div>
+        <div class="dest-desc">Registra a tu mascota y obtén su vacuna antirrábica gratuita.</div>
+      </div>
+      <div class="dest-card" onclick="irA('transparencia')">
+        <div class="dest-icono">📊</div>
+        <div class="dest-nombre">Transparencia</div>
+        <div class="dest-desc">Consulta presupuestos, contratos y actas de cabildo en línea.</div>
+      </div>
+    </div>
+
+    <div class="seccion-eyebrow">Dependencias Municipales</div>
+    <div class="seccion-titulo">Estructura de Gobierno</div>
+    <div class="seccion-divider"></div>
+
+    <div class="cat-header">
+      <div class="cat-titulo">Áreas Principales</div>
+      <div class="cat-linea"></div>
+      <div class="cat-count">6 dependencias</div>
+    </div>
+    <div class="grid-depto" style="margin-bottom:2rem;">
+      <div class="depto-card" onclick="irA('departamentos')">
+        <div class="depto-card-header"><div class="depto-icon">⚖️</div><div class="depto-nombre">Presidencia Municipal</div></div>
+        <div class="depto-card-body"><div class="depto-desc">Máxima autoridad del gobierno municipal. Coordina todas las dependencias y atiende asuntos de interés público.</div><div class="depto-info-row"><span>📍</span><span>Av. Madero 100, Centro, Palacio Municipal</span></div><div class="depto-info-row"><span>📞</span><span>618-825-0911</span></div></div>
+      </div>
+      <div class="depto-card" onclick="irA('departamentos')">
+        <div class="depto-card-header"><div class="depto-icon">💰</div><div class="depto-nombre">Tesorería Municipal</div></div>
+        <div class="depto-card-body"><div class="depto-desc">Recaudación, administración y control del erario público. Pagos de predial, derechos y licencias.</div><div class="depto-info-row"><span>📍</span><span>Palacio Municipal, Planta Baja Ala Norte</span></div><div class="depto-info-row"><span>📞</span><span>618-825-1234</span></div></div>
+      </div>
+      <div class="depto-card" onclick="irA('departamentos')">
+        <div class="depto-card-header"><div class="depto-icon">🏗️</div><div class="depto-nombre">Obras Públicas</div></div>
+        <div class="depto-card-body"><div class="depto-desc">Planificación y ejecución de infraestructura urbana, pavimentación, alumbrado y construcción de espacios públicos.</div><div class="depto-info-row"><span>📍</span><span>Calle Independencia 220, Col. Centro</span></div><div class="depto-info-row"><span>📞</span><span>618-825-2345</span></div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════ DEPARTAMENTOS ═══════════════════ -->
+<div id="page-departamentos" class="page">
+  <div class="page-hero">
+    <div class="page-hero-eyebrow">Gobierno Municipal</div>
+    <h1>🏛️ Dependencias y Direcciones</h1>
+    <p>Conoce todas las áreas de gobierno municipal, sus funciones, ubicaciones y datos de contacto.</p>
+  </div>
+
+  <section class="seccion">
+    <div class="cat-header">
+      <div class="cat-titulo">Gobierno y Administración</div>
+      <div class="cat-linea"></div>
+      <div class="cat-count">4 dependencias</div>
+    </div>
+    <div class="grid-depto" style="margin-bottom:2.5rem;">
+      <div class="depto-card">
+        <div class="depto-card-header"><div class="depto-icon">⚖️</div><div class="depto-nombre">Presidencia Municipal</div></div>
+        <div class="depto-card-body">
+          <div class="depto-desc">Máxima autoridad del gobierno municipal. Coordina todas las dependencias y dicta políticas públicas para el desarrollo de Gómez Palacio.</div>
+          <div class="depto-info-row"><span>📍</span><span>Av. Madero 100, Col. Centro, Palacio Municipal – Planta Alta</span></div>
+          <div class="depto-info-row"><span>📞</span><span>618-825-0911</span></div>
+          <div class="depto-info-row"><span>✉️</span><span>presidencia@gomezpalacio.gob.mx</span></div>
+          <div class="depto-info-row"><span>🕐</span><span>Lun–Vie 8:00–15:00 hrs (con cita previa)</span></div>
+          <div class="depto-horario">Atención ciudadana: Martes y Jueves</div>
+        </div>
+      </div>
+      <div class="depto-card">
+        <div class="depto-card-header"><div class="depto-icon">📜</div><div class="depto-nombre">Secretaría del Ayuntamiento</div></div>
+        <div class="depto-card-body">
+          <div class="depto-desc">Gestiona actas de cabildo, certificaciones, fe pública y coordinación entre las áreas del Ayuntamiento.</div>
+          <div class="depto-info-row"><span>📍</span><span>Palacio Municipal, Planta Alta, Ala Oriente</span></div>
+          <div class="depto-info-row"><span>📞</span><span>618-825-0922</span></div>
+          <div class="depto-info-row"><span>✉️</span><span>secretaria@gomezpalacio.gob.mx</span></div>
+          <div class="depto-info-row"><span>🕐</span><span>Lun–Vie 8:00–15:00 hrs</span></div>
+          <div class="depto-horario">Sesiones de Cabildo: Primer y Tercer Martes de cada mes</div>
+        </div>
+      </div>
+      <div class="depto-card">
+        <div class="depto-card-header"><div class="depto-icon">⚖️</div><div class="depto-nombre">Sindicatura Municipal</div></div>
+        <div class="depto-card-body">
+          <div class="depto-desc">Vigilancia del patrimonio municipal, legalidad de actos administrativos y representación jurídica del municipio.</div>
+          <div class="depto-info-row"><span>📍</span><span>Palacio Municipal, Planta Baja, Ala Poniente</span></div>
+          <div class="depto-info-row"><span>📞</span><span>618-825-0944</span></div>
+          <div class="depto-info-row"><span>✉️</span><span>sindicatura@gomezpalacio.gob.mx</span></div>
+          <div class="depto-info-row"><span>🕐</span><span>Lun–Vie 8:00–15:00 hrs</span></div>
+        </div>
+      </div>
+      <div class="depto-card">
+        <div class="depto-card-header"><div class="depto-icon">💰</div><div class="depto-nombre">Tesorería Municipal</div></div>
+        <div class="depto-card-body">
+          <div class="depto-desc">Administración financiera, recaudación fiscal, pagos de predial, licencias y derechos municipales. Emite recibos oficiales.</div>
+          <div class="depto-info-row"><span>📍</span><span>Palacio Municipal, Planta Baja, Ala Norte</span></div>
+          <div class="depto-info-row"><span>📞</span><span>618-825-1234</span></div>
+          <div class="depto-info-row"><span>✉️</span><span>tesoreria@gomezpalacio.gob.mx</span></div>
+          <div class="depto-info-row"><span>🕐</span><span>Lun–Vie 8:00–15:00 hrs</span></div>
+          <div class="depto-horario">Pago en línea disponible 24/7</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cat-header">
+      <div class="cat-titulo">Obras, Servicios y Desarrollo</div>
+      <div class="cat-linea"></div>
+      <div class="cat-count">5 dependencias</div>
+    </div>
+    <div class="grid-depto" style="margin-bottom:2.5rem;">
+      <div class="depto-card">
+        <div class="depto-card-header"><div class="depto-icon">🏗️</div><div class="depto-nombre">Dirección de Obras Públicas</div></div>
+        <div class="depto-card-body">
+          <div class="depto-desc">Planificación, licitación y supervisión de obras de infraestructura: calles, parques, drenaje, alumbrado y edificios públicos.</div>
+          <div class="depto-info-row"><span>📍</span><span>Calle Independencia 220, Col. Centro</span></div>
+          <div class="depto-info-row"><span>📞</span><span>618-825-2345</span></div>
+          <div class="depto-info-row"><span>✉️</span><span>obras@gomezpalacio.gob.mx</span></div>
+          <div class="depto-info-row"><span>🕐</span><span>Lun–Vie 8:00–15:00 hrs</span></div>
+          <div class="depto-horario">Licencias de construcción y subdivisión</div>
+        </div>
+      </div>
+      <div class="depto-card">
+        <div class="depto-card-header"><div class="depto-icon">🌳</div><div class="depto-nombre">Servicios Municipales</div></div>
+        <div class="depto-card-body">
+          <div class="depto-desc">Recolección de basura, limpieza de calles, mantenimiento de parques, jardines y áreas verdes del municipio.</div>
+          <div class="depto-info-row"><span>📍</span><span>Blvd. Ejército Mexicano 400, Col. Industrial</span></div>
+          <div class="depto-info-row"><span>📞</span><span>618-825-3456</span></div>
+          <div class="depto-info-row"><span>✉️</span><span>servicios@gomezpalacio.gob.mx</span></div>
+          <div class="depto-info-row"><span>🕐</span><span>Lun–Sáb 6:00–18:00 hrs (recolección)</span></div>
+          <div class="depto-horario">Reportes 24/7 vía app o llamada</div>
+        </div>
+      </div>
+      <div class="depto-card">
+        <div class="depto-card-header"><div class="depto-icon">🏠</div><div class="depto-nombre">Desarrollo Urbano</div></div>
+        <div class="depto-card-body">
+          <div class="depto-desc">Uso de suelo, fraccionamientos, regularización de predios y planeación del crecimiento ordenado de la ciudad.</div>
+          <div class="depto-info-row"><span>📍</span><span>Calle Independencia 220, 2do Piso</span></div>
+          <div class="depto-info-row"><span>📞</span><span>618-825-2367</span></div>
+          <div class="depto-info-row"><span>✉️</span><span>urbanismo@gomezpalacio.gob.mx</span></div>
+          <div class="depto-info-row"><span>🕐</span><span>Lun–Vie 8:00–15:00 hrs</span></div>
+        </div>
+      </div>
+      <div class="depto-card">
+        <div class="depto-card-header"><div class="depto-icon">💼</div><div class="depto-nombre">Desarrollo Económico</div></div>
+        <div class="depto-card-body">
+          <div class="depto-desc">Fomento al comercio, apertura de negocios, atracción de inversiones y apoyo al sector empresarial local.</div>
+          <div class="depto-info-row"><span>📍</span><span>Av. Juárez 350, Col. Centro</span></div>
+          <div class="depto-info-row"><span>📞</span><span>618-825-4567</span></div>
+          <div class="depto-info-row"><span>✉️</span><span>economia@gomezpalacio.gob.mx</span></div>
+          <div class="depto-info-row"><span>🕐</span><span>Lun–Vie 8:00–15:00 hrs</span></div>
+          <div class="depto-horario">Asesoría empresarial sin costo</div>
+        </div>
+      </div>
+      <div class="depto-card">
+        <div class="depto-card-header"><div class="depto-icon">🌿</div><div class="depto-nombre">Ecología Municipal</div></div>
+        <div class="depto-card-body">
+          <div class="depto-desc">Protección ambiental, control de emisiones, verificación vehicular, reforestación y gestión de residuos peligrosos.</div>
+          <div class="depto-info-row"><span>📍</span><span>Blvd. Ejército Mexicano 400, Of. 12</span></div>
+          <div class="depto-info-row"><span>📞</span><span>618-825-3478</span></div>
+          <div class="depto-info-row"><span>✉️</span><span>ecologia@gomezpalacio.gob.mx</span></div>
+          <div class="depto-info-row"><span>🕐</span><span>Lun–Vie 8:00–15:00 hrs</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cat-header">
+      <div class="cat-titulo">Social, Salud y Seguridad</div>
+      <div class="cat-linea"></div>
+      <div class="cat-count">5 dependencias</div>
+    </div>
+    <div class="grid-depto" style="margin-bottom:2.5rem;">
+      <div class="depto-card">
+        <div class="depto-card-header"><div class="depto-icon">🛡️</div><div class="depto-nombre">Seguridad Pública Municipal</div></div>
+        <div class="depto-card-body">
+          <div class="depto-desc">Policía Municipal, patrullaje, prevención del delito, atención de emergencias y coordinación con autoridades estatales.</div>
+          <div class="depto-info-row"><span>📍</span><span>Calle 20 de Noviembre 150, Col. Centro</span></div>
+          <div class="depto-info-row"><span>📞</span><span>618-825-5555 (emergencias)</span></div>
+          <div class="depto-info-row"><span>📞</span><span>618-825-5500 (oficinas)</span></div>
+          <div class="depto-info-row"><span>🕐</span><span>Operativo 24/7 los 365 días</span></div>
+          <div class="depto-horario">Emergencias: llama al 911</div>
+        </div>
+      </div>
+      <div class="depto-card">
+        <div class="depto-card-header"><div class="depto-icon">📋</div><div class="depto-nombre">Registro Civil</div></div>
+        <div class="depto-card-body">
+          <div class="depto-desc">Registro de nacimientos, matrimonios, divorcios, defunciones. Expedición de actas y copias certificadas.</div>
+          <div class="depto-info-row"><span>📍</span><span>Av. Madero 100, Palacio Municipal, PB Ala Sur</span></div>
+          <div class="depto-info-row"><span>📞</span><span>618-825-0966</span></div>
+          <div class="depto-info-row"><span>✉️</span><span>registrocivil@gomezpalacio.gob.mx</span></div>
+          <div class="depto-info-row"><span>🕐</span><span>Lun–Vie 8:00–15:00 hrs</span></div>
+          <div class="depto-horario">Bodas colectivas: contactar para fechas</div>
+        </div>
+      </div>
+      <div class="depto-card">
+        <div class="depto-card-header"><div class="depto-icon">❤️</div><div class="depto-nombre">DIF Municipal</div></div>
+        <div class="depto-card-body">
+          <div class="depto-desc">Asistencia social, protección a la familia, adultos mayores, personas con discapacidad, niñas y niños en situación vulnerable.</div>
+          <div class="depto-info-row"><span>📍</span><span>Calle Guadalupe Victoria 500, Col. Centro</span></div>
+          <div class="depto-info-row"><span>📞</span><span>618-825-6789</span></div>
+          <div class="depto-info-row"><span>✉️</span><span>dif@gomezpalacio.gob.mx</span></div>
+          <div class="depto-info-row"><span>🕐</span><span>Lun–Vie 8:00–15:00 hrs</span></div>
+          <div class="depto-horario">Desayunos escolares · Adulto Mayor</div>
+        </div>
+      </div>
+      <div class="depto-card">
+        <div class="depto-card-header"><div class="depto-icon">🎓</div><div class="depto-nombre">Educación y Cultura</div></div>
+        <div class="depto-card-body">
+          <div class="depto-desc">Programas educativos, becas municipales, talleres culturales, casas de cultura y fomento al deporte.</div>
+          <div class="depto-info-row"><span>📍</span><span>Av. Juárez 380, Casa de Cultura</span></div>
+          <div class="depto-info-row"><span>📞</span><span>618-825-7890</span></div>
+          <div class="depto-info-row"><span>✉️</span><span>cultura@gomezpalacio.gob.mx</span></div>
+          <div class="depto-info-row"><span>🕐</span><span>Lun–Vie 8:00–18:00 hrs</span></div>
+          <div class="depto-horario">Talleres abiertos a toda la comunidad</div>
+        </div>
+      </div>
+      <div class="depto-card">
+        <div class="depto-card-header"><div class="depto-icon">🏥</div><div class="depto-nombre">Salud Municipal</div></div>
+        <div class="depto-card-body">
+          <div class="depto-desc">Campañas de vacunación, brigadas de salud, control de fauna nociva y coordinación con clínicas del IMSS e ISSSTE.</div>
+          <div class="depto-info-row"><span>📍</span><span>Calle Hidalgo 200, Col. Centro</span></div>
+          <div class="depto-info-row"><span>📞</span><span>618-825-8901</span></div>
+          <div class="depto-info-row"><span>✉️</span><span>salud@gomezpalacio.gob.mx</span></div>
+          <div class="depto-info-row"><span>🕐</span><span>Lun–Vie 8:00–15:00 hrs</span></div>
+          <div class="depto-horario">Vacunación antirrábica gratuita permanente</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ NUEVO: INSTITUTO DE LA MUJER ══ -->
+    <div class="cat-header">
+      <div class="cat-titulo">Género e Igualdad</div>
+      <div class="cat-linea"></div>
+      <div class="cat-count">1 dependencia</div>
+    </div>
+    <div class="grid-depto">
+      <div class="depto-card">
+        <div class="depto-card-header mujer"><div class="depto-icon">♀️</div><div class="depto-nombre">Instituto Municipal de la Mujer</div></div>
+        <div class="depto-card-body">
+          <div class="depto-desc">Promueve la igualdad de género, prevención y atención a víctimas de violencia familiar y de género, empoderamiento económico y social de las mujeres gomezpalatinas.</div>
+          <div class="depto-info-row"><span>📍</span><span>Av. Juárez 390, Col. Centro, Gómez Palacio, Dgo.</span></div>
+          <div class="depto-info-row"><span>📞</span><span>618-825-9100</span></div>
+          <div class="depto-info-row"><span>☎</span><span>Línea de crisis: 618-825-9111 (24 hrs)</span></div>
+          <div class="depto-info-row"><span>✉️</span><span>institutodelamujer@gomezpalacio.gob.mx</span></div>
+          <div class="depto-info-row"><span>🕐</span><span>Lun–Vie 8:00–16:00 hrs</span></div>
+          <div class="depto-info-row"><span>🤝</span><span>Asesoría jurídica, psicológica y trabajo social gratuitos</span></div>
+          <div class="depto-horario mujer">Atención a víctimas · Talleres de empoderamiento</div>
+        </div>
+      </div>
+      <!-- Tarjeta informativa de servicios del Instituto -->
+      <div class="depto-card" style="border-color:rgba(139,34,82,0.2);">
+        <div class="depto-card-header mujer"><div class="depto-icon">💜</div><div class="depto-nombre">Servicios del Instituto de la Mujer</div></div>
+        <div class="depto-card-body">
+          <div class="depto-desc" style="margin-bottom:0.6rem;">El instituto ofrece de manera gratuita y confidencial:</div>
+          <div class="depto-info-row"><span>⚖️</span><span>Asesoría jurídica en temas de familia, divorcio y pensión alimenticia</span></div>
+          <div class="depto-info-row"><span>🧠</span><span>Atención psicológica individual y grupal</span></div>
+          <div class="depto-info-row"><span>👩‍💼</span><span>Capacitación laboral y talleres de emprendimiento</span></div>
+          <div class="depto-info-row"><span>🏠</span><span>Orientación para acceso a refugios y albergues</span></div>
+          <div class="depto-info-row"><span>📚</span><span>Talleres sobre derechos de la mujer y prevención de violencia</span></div>
+          <div class="depto-info-row"><span>👧</span><span>Programas para niñas y adolescentes</span></div>
+          <div class="depto-horario mujer">Confidencialidad garantizada en todos los servicios</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<!-- ═══════════════════ TRÁMITES ═══════════════════ -->
+<div id="page-tramites" class="page">
+  <div class="page-hero">
+    <div class="page-hero-eyebrow">Servicios Municipales</div>
+    <h1>📋 Trámites y Servicios</h1>
+    <p>Encuentra toda la información sobre requisitos, costos, pasos y tiempos de cada trámite municipal.</p>
+  </div>
+  <div class="filtro-bar">
+    <button class="filtro-btn activo" onclick="filtrar(this,'todos')">Todos</button>
+    <button class="filtro-btn" onclick="filtrar(this,'civil')">Registro Civil</button>
+    <button class="filtro-btn" onclick="filtrar(this,'obras')">Obras y Construcción</button>
+    <button class="filtro-btn" onclick="filtrar(this,'fiscal')">Fiscal / Pagos</button>
+    <button class="filtro-btn" onclick="filtrar(this,'servicios')">Servicios</button>
+    <button class="filtro-btn" onclick="filtrar(this,'comercio')">Comercio</button>
+    <button class="filtro-btn" onclick="filtrar(this,'federal')">Trámites Federales</button>
+  </div>
+
+  <section class="seccion">
+    <div class="tramites-grid">
+
+      <!-- TRÁMITES ORIGINALES -->
+      <div class="tramite-card" data-cat="civil">
+        <button class="tramite-header-btn" onclick="toggleTramite(this)">
+          <div class="tramite-icono">📄</div>
+          <div class="tramite-nombre">Acta de Nacimiento</div>
+          <div class="tramite-arrow">▼</div>
+        </button>
+        <div class="tramite-body">
+          <div><span class="tramite-tag">Registro Civil</span><span class="costo-badge">$85 – $120 MXN</span></div>
+          <p class="tramite-intro">Copia certificada de acta de nacimiento para trámites escolares, laborales, médicos u oficiales. Disponible también en línea a través de RENAPO.</p>
+          <div class="docs-box">
+            <div class="docs-box-titulo">Documentos Requeridos</div>
+            <ul>
+              <li>CURP del solicitante (si se conoce)</li>
+              <li>Identificación oficial del solicitante (INE/pasaporte)</li>
+              <li>Datos del registrado: nombre completo, fecha y lugar de nacimiento</li>
+              <li>Pago de derechos ($85 primera copia, $120 subsecuentes)</li>
+            </ul>
+          </div>
+          <div class="pasos-titulo">Pasos a Seguir</div>
+          <div class="paso"><div class="paso-num">1</div><p>Acudir al <strong>Registro Civil</strong> – Palacio Municipal PB Ala Sur, o solicitar en línea en registrocivil.durango.gob.mx</p></div>
+          <div class="paso"><div class="paso-num">2</div><p>Presentar documentos e indicar los datos del registrado</p></div>
+          <div class="paso"><div class="paso-num">3</div><p>Realizar el pago en caja de Tesorería o en línea</p></div>
+          <div class="paso"><div class="paso-num">4</div><p>Recoger el acta el mismo día (en persona) o en 3–5 días hábiles (en línea)</p></div>
+          <div class="tip-box"><strong>💡 Tip:</strong> Si naciste después de 2001, puedes descargar tu acta gratuita en <strong>gob.mx/actas</strong> con tu CURP, sin costo.</div>
+        </div>
+      </div>
+
+      <div class="tramite-card" data-cat="civil">
+        <button class="tramite-header-btn" onclick="toggleTramite(this)">
+          <div class="tramite-icono">💍</div>
+          <div class="tramite-nombre">Matrimonio Civil</div>
+          <div class="tramite-arrow">▼</div>
+        </button>
+        <div class="tramite-body">
+          <div><span class="tramite-tag">Registro Civil</span><span class="costo-badge">$850 – $2,500 MXN</span></div>
+          <p class="tramite-intro">Celebración del matrimonio civil ante el Oficial del Registro Civil. Puede realizarse en las oficinas o en domicilio particular (costo mayor).</p>
+          <div class="docs-box">
+            <div class="docs-box-titulo">Documentos de Ambos Contrayentes</div>
+            <ul>
+              <li>Acta de nacimiento original (máx. 3 meses de expedida)</li>
+              <li>Identificación oficial vigente (INE o pasaporte)</li>
+              <li>CURP impresa</li>
+              <li>Certificado médico prenupcial (con sangre)</li>
+              <li>Dos testigos con identificación oficial</li>
+              <li>Si divorciado/a: acta de divorcio</li>
+              <li>Si viudo/a: acta de defunción del cónyuge</li>
+            </ul>
+          </div>
+          <div class="pasos-titulo">Proceso</div>
+          <div class="paso"><div class="paso-num">1</div><p>Solicitar cita en Registro Civil al 618-825-0966 con <strong>30 días de anticipación mínimo</strong></p></div>
+          <div class="paso"><div class="paso-num">2</div><p>Entregar documentación completa para revisión previa</p></div>
+          <div class="paso"><div class="paso-num">3</div><p>Pagar derechos en Tesorería Municipal</p></div>
+          <div class="paso"><div class="paso-num">4</div><p>Celebración de la ceremonia en fecha acordada</p></div>
+          <div class="tip-box"><strong>💡 Tip:</strong> Las <strong>Bodas Colectivas Gratuitas</strong> se realizan periódicamente. Consulta fechas próximas en Registro Civil.</div>
+        </div>
+      </div>
+
+      <div class="tramite-card" data-cat="obras">
+        <button class="tramite-header-btn" onclick="toggleTramite(this)">
+          <div class="tramite-icono">🏠</div>
+          <div class="tramite-nombre">Licencia de Construcción</div>
+          <div class="tramite-arrow">▼</div>
+        </button>
+        <div class="tramite-body">
+          <div><span class="tramite-tag">Obras Públicas</span><span class="costo-badge">Variable según m²</span></div>
+          <p class="tramite-intro">Permiso obligatorio para cualquier construcción nueva, ampliación, remodelación o demolición de inmuebles en el municipio.</p>
+          <div class="docs-box">
+            <div class="docs-box-titulo">Documentos Requeridos</div>
+            <ul>
+              <li>Solicitud de licencia (formato oficial)</li>
+              <li>Escrituras del predio o contrato de compraventa</li>
+              <li>Planos arquitectónicos firmados por perito DRO (3 juegos)</li>
+              <li>Memoria de cálculo estructural</li>
+              <li>Constancia de uso de suelo</li>
+              <li>Predial pagado al corriente</li>
+              <li>Identificación oficial del propietario</li>
+            </ul>
+          </div>
+          <div class="pasos-titulo">Proceso</div>
+          <div class="paso"><div class="paso-num">1</div><p>Obtener <strong>constancia de uso de suelo</strong> en Desarrollo Urbano</p></div>
+          <div class="paso"><div class="paso-num">2</div><p>Contratar un DRO (Director Responsable de Obra) registrado ante el municipio</p></div>
+          <div class="paso"><div class="paso-num">3</div><p>Presentar expediente completo en <strong>Dirección de Obras Públicas</strong></p></div>
+          <div class="paso"><div class="paso-num">4</div><p>Pago de derechos según tabla vigente ($18–$45 por m² según tipo de obra)</p></div>
+          <div class="paso"><div class="paso-num">5</div><p>Revisión técnica (5–10 días hábiles) y entrega de licencia</p></div>
+          <div class="tip-box"><strong>⚠️ Importante:</strong> Construir sin licencia puede resultar en multa de hasta 3× el costo del permiso y demolición.</div>
+        </div>
+      </div>
+
+      <div class="tramite-card" data-cat="fiscal">
+        <button class="tramite-header-btn" onclick="toggleTramite(this)">
+          <div class="tramite-icono">💰</div>
+          <div class="tramite-nombre">Pago de Impuesto Predial</div>
+          <div class="tramite-arrow">▼</div>
+        </button>
+        <div class="tramite-body">
+          <div><span class="tramite-tag">Tesorería</span><span class="costo-badge">Variable por predio</span></div>
+          <p class="tramite-intro">Pago anual obligatorio del impuesto sobre la propiedad inmueble. Realizarlo en enero o febrero otorga descuentos del 10% al 15%.</p>
+          <div class="docs-box">
+            <div class="docs-box-titulo">Qué necesitas</div>
+            <ul>
+              <li>Número de cuenta catastral (en recibo anterior)</li>
+              <li>Identificación oficial del propietario o representante</li>
+              <li>En caso de representante: carta poder simple</li>
+            </ul>
+          </div>
+          <div class="pasos-titulo">Opciones de Pago</div>
+          <div class="paso"><div class="paso-num">1</div><p><strong>Presencial:</strong> Tesorería Municipal, Palacio Municipal PB Ala Norte. Lun–Vie 8:00–15:00</p></div>
+          <div class="paso"><div class="paso-num">2</div><p><strong>En línea:</strong> Portal gomezpalacio.gob.mx/predial con tarjeta o transferencia</p></div>
+          <div class="paso"><div class="paso-num">3</div><p><strong>Bancos convenio:</strong> BBVA, Banorte y HSBC con número de cuenta catastral</p></div>
+          <div class="tip-box"><strong>🎁 Descuentos:</strong> <strong>Enero: 15%</strong> | <strong>Febrero: 10%</strong> | Adultos mayores +60 años: 50% todo el año con CURP.</div>
+        </div>
+      </div>
+
+      <div class="tramite-card" data-cat="comercio">
+        <button class="tramite-header-btn" onclick="toggleTramite(this)">
+          <div class="tramite-icono">🏪</div>
+          <div class="tramite-nombre">Licencia de Funcionamiento</div>
+          <div class="tramite-arrow">▼</div>
+        </button>
+        <div class="tramite-body">
+          <div><span class="tramite-tag">Comercio</span><span class="costo-badge">$650 – $4,500 MXN</span></div>
+          <p class="tramite-intro">Permiso municipal obligatorio para operar un establecimiento comercial, restaurante, taller, clínica u oficina en el municipio.</p>
+          <div class="docs-box">
+            <div class="docs-box-titulo">Documentos</div>
+            <ul>
+              <li>Solicitud de licencia (Formato DF-01)</li>
+              <li>Identificación oficial del propietario o representante legal</li>
+              <li>RFC con homoclave</li>
+              <li>Comprobante de domicilio del establecimiento</li>
+              <li>Constancia de uso de suelo</li>
+              <li>Contrato de arrendamiento o escritura del local</li>
+              <li>Dictamen de protección civil (para giros de riesgo)</li>
+              <li>Licencia sanitaria (para alimentos)</li>
+            </ul>
+          </div>
+          <div class="pasos-titulo">Proceso</div>
+          <div class="paso"><div class="paso-num">1</div><p>Obtener <strong>uso de suelo</strong> en Desarrollo Urbano (compatible con el giro)</p></div>
+          <div class="paso"><div class="paso-num">2</div><p>Reunir documentación y presentarla en <strong>Desarrollo Económico</strong></p></div>
+          <div class="paso"><div class="paso-num">3</div><p>Inspección del establecimiento (3–7 días hábiles)</p></div>
+          <div class="paso"><div class="paso-num">4</div><p>Pago de derechos y entrega de licencia</p></div>
+          <div class="tip-box"><strong>💡 Tip:</strong> La licencia se renueva anualmente en enero. Renovación tardía genera recargo del 20%.</div>
+        </div>
+      </div>
+
+      <div class="tramite-card" data-cat="servicios">
+        <button class="tramite-header-btn" onclick="toggleTramite(this)">
+          <div class="tramite-icono">🗑️</div>
+          <div class="tramite-nombre">Reporte: Problemas de Basura / Limpieza</div>
+          <div class="tramite-arrow">▼</div>
+        </button>
+        <div class="tramite-body">
+          <div><span class="tramite-tag">Servicios Municipales</span><span class="costo-badge">Gratuito</span></div>
+          <p class="tramite-intro">Reporta tiraderos clandestinos, falta de recolección o acumulación irregular de basura en tu colonia.</p>
+          <div class="docs-box">
+            <div class="docs-box-titulo">Canales de Reporte</div>
+            <ul>
+              <li>Teléfono Servicios Municipales: 618-825-3456</li>
+              <li>App "Gómez Palacio Conecta" (iOS y Android)</li>
+              <li>Facebook oficial del municipio</li>
+              <li>Presentarte en las oficinas de Servicios Municipales</li>
+            </ul>
+          </div>
+          <div class="tip-box"><strong>🕐 Horarios de recolección:</strong> Lunes, Miércoles y Viernes – Zona Centro 7:00 a 10:00 hrs. Colonias periféricas según ruta asignada.</div>
+        </div>
+      </div>
+
+      <div class="tramite-card" data-cat="servicios">
+        <button class="tramite-header-btn" onclick="toggleTramite(this)">
+          <div class="tramite-icono">🚧</div>
+          <div class="tramite-nombre">Reporte de Baches y Vialidad</div>
+          <div class="tramite-arrow">▼</div>
+        </button>
+        <div class="tramite-body">
+          <div><span class="tramite-tag">Obras Públicas</span><span class="costo-badge">Gratuito</span></div>
+          <p class="tramite-intro">Reporta baches, luminarias apagadas, señalética dañada o cualquier problema en la vía pública.</p>
+          <div class="docs-box">
+            <div class="docs-box-titulo">Canales de Reporte</div>
+            <ul>
+              <li>Teléfono Obras Públicas: 618-825-2345</li>
+              <li>App "Gómez Palacio Conecta"</li>
+              <li>Formulario en gomezpalacio.gob.mx/reportes</li>
+              <li>Redes sociales del municipio</li>
+            </ul>
+          </div>
+          <div class="tip-box"><strong>📱 Incluye:</strong> Foto del problema, calle y colonia, referencia (entre qué calles). Esto agiliza la atención hasta en un 60%.</div>
+        </div>
+      </div>
+
+      <div class="tramite-card" data-cat="servicios">
+        <button class="tramite-header-btn" onclick="toggleTramite(this)">
+          <div class="tramite-icono">🐕</div>
+          <div class="tramite-nombre">Registro y Vacunación de Mascotas</div>
+          <div class="tramite-arrow">▼</div>
+        </button>
+        <div class="tramite-body">
+          <div><span class="tramite-tag">Salud Municipal</span><span class="costo-badge">Gratuito</span></div>
+          <p class="tramite-intro">Registra a tu perro o gato y recibe la vacuna antirrábica sin costo. El registro protege a tu familia y a la comunidad.</p>
+          <div class="docs-box">
+            <div class="docs-box-titulo">Qué llevar</div>
+            <ul>
+              <li>Tu mascota (con correa o en transportadora)</li>
+              <li>Identificación oficial del dueño</li>
+              <li>Libreta de vacunación anterior (si tiene)</li>
+            </ul>
+          </div>
+          <div class="pasos-titulo">Dónde acudir</div>
+          <div class="paso"><div class="paso-num">1</div><p>Centro de Salud Municipal: Calle Hidalgo 200. Lun–Vie 8:00–13:00</p></div>
+          <div class="paso"><div class="paso-num">2</div><p>Brigadas móviles en colonias (consultar calendario mensual)</p></div>
+          <div class="tip-box"><strong>📅 Campaña anual:</strong> Cada año en abril-mayo se realiza la Campaña Masiva de Vacunación Antirrábica en toda la ciudad.</div>
+        </div>
+      </div>
+
+      <div class="tramite-card" data-cat="obras">
+        <button class="tramite-header-btn" onclick="toggleTramite(this)">
+          <div class="tramite-icono">📐</div>
+          <div class="tramite-nombre">Constancia de Uso de Suelo</div>
+          <div class="tramite-arrow">▼</div>
+        </button>
+        <div class="tramite-body">
+          <div><span class="tramite-tag">Desarrollo Urbano</span><span class="costo-badge">$350 MXN</span></div>
+          <p class="tramite-intro">Documento que certifica los usos permitidos en un predio. Requisito previo para licencias de construcción y apertura de negocios.</p>
+          <div class="docs-box">
+            <div class="docs-box-titulo">Documentos</div>
+            <ul>
+              <li>Solicitud por escrito con datos del predio</li>
+              <li>Croquis de localización del predio</li>
+              <li>Escritura pública o contrato de arrendamiento</li>
+              <li>Predial pagado al corriente</li>
+              <li>Identificación oficial del solicitante</li>
+            </ul>
+          </div>
+          <div class="tip-box"><strong>⏱ Tiempo de respuesta:</strong> 3–5 días hábiles. La constancia tiene vigencia de 6 meses.</div>
+        </div>
+      </div>
+
+      <div class="tramite-card" data-cat="civil">
+        <button class="tramite-header-btn" onclick="toggleTramite(this)">
+          <div class="tramite-icono">🕊️</div>
+          <div class="tramite-nombre">Registro de Defunción</div>
+          <div class="tramite-arrow">▼</div>
+        </button>
+        <div class="tramite-body">
+          <div><span class="tramite-tag">Registro Civil</span><span class="costo-badge">Gratuito (1ª copia)</span></div>
+          <p class="tramite-intro">Trámite urgente que debe realizarse dentro de las 24–48 horas del fallecimiento para obtener el permiso de inhumación.</p>
+          <div class="docs-box">
+            <div class="docs-box-titulo">Documentos</div>
+            <ul>
+              <li>Certificado de defunción médico original</li>
+              <li>CURP del fallecido(a)</li>
+              <li>Acta de nacimiento del fallecido(a)</li>
+              <li>Identificación oficial del familiar declarante</li>
+              <li>2 testigos con identificación</li>
+            </ul>
+          </div>
+          <div class="tip-box"><strong>🚨 Urgente:</strong> El Registro Civil tiene módulo de guardia para atender defunciones fuera de horario. Tel: 618-825-0966</div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════
+           NUEVOS TRÁMITES FEDERALES
+      ══════════════════════════════════════ -->
+
+      <!-- CURP -->
+      <div class="tramite-card" data-cat="federal">
+        <button class="tramite-header-btn federal" onclick="toggleTramite(this)">
+          <div class="tramite-icono">🪪</div>
+          <div class="tramite-nombre">CURP – Consulta e Impresión <span class="badge-federal">Federal</span></div>
+          <div class="tramite-arrow">▼</div>
+        </button>
+        <div class="tramite-body">
+          <div><span class="tramite-tag federal">Trámite Federal · RENAPO</span><span class="costo-badge">Gratuito</span></div>
+          <p class="tramite-intro">La Clave Única de Registro de Población (CURP) es un documento de identidad obligatorio para mexicanos y extranjeros residentes. Se obtiene en línea de forma gratuita.</p>
+          <div class="docs-box">
+            <div class="docs-box-titulo">Para consultar / reimprimir tu CURP</div>
+            <ul>
+              <li>Nombre completo (como aparece en tu acta de nacimiento)</li>
+              <li>Fecha de nacimiento</li>
+              <li>Entidad federativa de nacimiento</li>
+              <li>Sexo</li>
+            </ul>
+          </div>
+          <div class="pasos-titulo">Opciones para obtenerla</div>
+          <div class="paso"><div class="paso-num azul">1</div><p><strong>En línea (recomendado):</strong> Ingresa a <strong>gob.mx/curp</strong>, introduce tus datos y descarga el PDF oficial sin costo</p></div>
+          <div class="paso"><div class="paso-num azul">2</div><p><strong>Presencial:</strong> Acude al Registro Civil – Palacio Municipal (PB Ala Sur) con identificación oficial</p></div>
+          <div class="paso"><div class="paso-num azul">3</div><p><strong>En escuelas:</strong> Los planteles educativos pueden gestionar la CURP de alumnos ante la SEP</p></div>
+          <div class="tip-box azul"><strong>💡 Nota:</strong> Si tus datos están incorrectos en la CURP, la corrección se realiza ante el <strong>Registro Civil</strong> con el acta de nacimiento original. Sin costo en Gómez Palacio.</div>
+          <a class="link-oficial azul" href="https://www.gob.mx/curp" target="_blank">🔗 Consultar CURP en línea</a>
+        </div>
+      </div>
+
+      <!-- RFC -->
+      <div class="tramite-card" data-cat="federal">
+        <button class="tramite-header-btn federal" onclick="toggleTramite(this)">
+          <div class="tramite-icono">🧾</div>
+          <div class="tramite-nombre">RFC – Registro Federal de Contribuyentes <span class="badge-federal">Federal</span></div>
+          <div class="tramite-arrow">▼</div>
+        </button>
+        <div class="tramite-body">
+          <div><span class="tramite-tag federal">Trámite Federal · SAT</span><span class="costo-badge">Gratuito</span></div>
+          <p class="tramite-intro">El RFC es indispensable para realizar cualquier actividad económica formal: empleos, facturación, apertura de negocios o trámites bancarios. Lo emite el SAT (Servicio de Administración Tributaria).</p>
+          <div class="docs-box">
+            <div class="docs-box-titulo">Documentos para personas físicas</div>
+            <ul>
+              <li>CURP actualizada</li>
+              <li>Acta de nacimiento (original o copia certificada)</li>
+              <li>Comprobante de domicilio vigente (máx. 3 meses)</li>
+              <li>Identificación oficial con fotografía (INE, pasaporte)</li>
+              <li>Correo electrónico personal activo</li>
+            </ul>
+          </div>
+          <div class="pasos-titulo">Proceso de inscripción</div>
+          <div class="paso"><div class="paso-num azul">1</div><p><strong>En línea:</strong> Ingresa a <strong>sat.gob.mx</strong> → "Trámites" → "Inscripción al RFC". Solo necesitas tu CURP y correo electrónico</p></div>
+          <div class="paso"><div class="paso-num azul">2</div><p><strong>Presencial:</strong> Agenda cita en el <strong>SAT Torreón</strong> (la oficina más cercana a Gómez Palacio) o en el módulo del SAT habilitado periódicamente en el municipio</p></div>
+          <div class="paso"><div class="paso-num azul">3</div><p>Presenta documentos, toma de fotografía y firma electrónica (e.firma)</p></div>
+          <div class="paso"><div class="paso-num azul">4</div><p>Descarga tu constancia de situación fiscal en el mismo portal del SAT</p></div>
+          <div class="tip-box azul"><strong>📍 SAT más cercano:</strong> Blvd. Independencia 476 Ote., Torreón, Coah. · Tel: 800-463-6728. Agenda tu cita en <strong>sat.gob.mx/citas</strong> para evitar filas.</div>
+          <a class="link-oficial azul" href="https://www.sat.gob.mx/tramitesyservicios/inscripcion-al-rfc" target="_blank">🔗 Inscripción RFC en SAT</a>
+        </div>
+      </div>
+
+      <!-- CARTILLA MILITAR -->
+      <div class="tramite-card" data-cat="federal">
+        <button class="tramite-header-btn federal" onclick="toggleTramite(this)">
+          <div class="tramite-icono">🪖</div>
+          <div class="tramite-nombre">Cartilla Militar (Liberación del SMN) <span class="badge-federal">Federal</span></div>
+          <div class="tramite-arrow">▼</div>
+        </button>
+        <div class="tramite-body">
+          <div><span class="tramite-tag federal">Trámite Federal · SEDENA</span><span class="costo-badge">Gratuito</span></div>
+          <p class="tramite-intro">Documento obligatorio para varones mexicanos. Acredita el cumplimiento del Servicio Militar Nacional (SMN). Es requisito para empleo, trámites de pasaporte y licencias profesionales.</p>
+          <div class="docs-box">
+            <div class="docs-box-titulo">Documentos Requeridos</div>
+            <ul>
+              <li>Acta de nacimiento original</li>
+              <li>CURP impresa</li>
+              <li>Identificación oficial o constancia de estudios</li>
+              <li>Comprobante de domicilio (máx. 3 meses)</li>
+              <li>2 fotografías tamaño infantil recientes (fondo blanco)</li>
+              <li>En caso de prórroga: constancia de estudios vigente</li>
+            </ul>
+          </div>
+          <div class="pasos-titulo">Proceso</div>
+          <div class="paso"><div class="paso-num azul">1</div><p>Regístrate en el módulo de reclutamiento del <strong>Palacio Municipal</strong> durante los periodos de empadronamiento (generalmente enero–marzo de cada año para los que cumplen 18 años)</p></div>
+          <div class="paso"><div class="paso-num azul">2</div><p>Asiste al <strong>sorteo</strong> asignado por el Consejo Municipal de Reclutamiento</p></div>
+          <div class="paso"><div class="paso-num azul">3</div><p>Realiza el año de servicio en modalidad asignada (martes de instrucción o modalidad especial)</p></div>
+          <div class="paso"><div class="paso-num azul">4</div><p>Al término, tramita tu <strong>Cartilla de Liberación</strong> (Clase B) en el Palacio Municipal o en el cuartel asignado</p></div>
+          <div class="tip-box azul"><strong>📅 Empadronamiento:</strong> Los jóvenes que cumplen 18 años ese año se empadronan en enero. Acude al Departamento de Registro Civil del Palacio Municipal con anticipación. <strong>No acudir genera multas.</strong></div>
+        </div>
+      </div>
+
+      <!-- LICENCIA DE CONDUCIR -->
+      <div class="tramite-card" data-cat="federal">
+        <button class="tramite-header-btn federal" onclick="toggleTramite(this)">
+          <div class="tramite-icono">🚗</div>
+          <div class="tramite-nombre">Licencia de Conducir <span class="badge-federal">Estatal</span></div>
+          <div class="tramite-arrow">▼</div>
+        </button>
+        <div class="tramite-body">
+          <div><span class="tramite-tag federal">Trámite Estatal · Gobierno de Durango</span><span class="costo-badge">$300 – $900 MXN</span></div>
+          <p class="tramite-intro">La licencia de conducir en Durango es emitida por el Gobierno del Estado a través de los módulos de licencias. Puedes tramitarla o renovarla en Gómez Palacio sin viajar a Durango capital.</p>
+          <div class="docs-box">
+            <div class="docs-box-titulo">Requisitos – Primera Vez</div>
+            <ul>
+              <li>CURP impresa</li>
+              <li>Identificación oficial vigente (INE, pasaporte o cédula)</li>
+              <li>Comprobante de domicilio (máx. 3 meses)</li>
+              <li>Acta de nacimiento</li>
+              <li>Examen médico de aptitud física y visual (se realiza en el módulo)</li>
+              <li>Examen teórico de reglamento de tránsito (se presenta en el módulo)</li>
+              <li>Pago de derechos (varía según vigencia: 2, 3 o 5 años)</li>
+            </ul>
+          </div>
+          <div class="docs-box">
+            <div class="docs-box-titulo">Requisitos – Renovación</div>
+            <ul>
+              <li>Licencia anterior (aunque esté vencida)</li>
+              <li>CURP impresa</li>
+              <li>Identificación oficial vigente</li>
+              <li>Examen médico en el módulo</li>
+              <li>Pago de derechos</li>
+            </ul>
+          </div>
+          <div class="pasos-titulo">Módulo en Gómez Palacio</div>
+          <div class="paso"><div class="paso-num azul">1</div><p>Acude al <strong>Módulo de Licencias de Conducir</strong> – Blvd. Ejército Mexicano 500, Gómez Palacio (esquina con Calle Reforma)</p></div>
+          <div class="paso"><div class="paso-num azul">2</div><p>Presenta tu documentación en ventanilla y realiza el pago</p></div>
+          <div class="paso"><div class="paso-num azul">3</div><p>Pasa el examen médico visual (tarda aprox. 10 minutos)</p></div>
+          <div class="paso"><div class="paso-num azul">4</div><p>Presenta el examen de reglamento (primera vez solamente)</p></div>
+          <div class="paso"><div class="paso-num azul">5</div><p>Toma de fotografía y entrega de licencia en el mismo día</p></div>
+          <div class="tip-box azul">
+            <strong>🕐 Horario del módulo:</strong> Lunes a Viernes 8:00–14:00 hrs · <strong>Tel: 618-825-9200</strong><br>
+            <strong>💰 Costos aproximados:</strong> 2 años: $300 · 3 años: $500 · 5 años: $900<br>
+            <strong>💡 Tip:</strong> Llega temprano; los exámenes médicos se realizan por orden de llegada sin cita.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════ UBICACIONES ═══════════════════ -->
+<div id="page-ubicaciones" class="page">
+  <div class="page-hero">
+    <div class="page-hero-eyebrow">Directorio de Oficinas</div>
+    <h1>📍 Ubicaciones y Mapas</h1>
+    <p>Encuentra las oficinas municipales, sus direcciones exactas y cómo llegar a cada una.</p>
+  </div>
+
+  <section class="seccion">
+    <div class="seccion-eyebrow">Sede Principal</div>
+    <div class="seccion-titulo">Palacio Municipal</div>
+    <div class="seccion-divider"></div>
+
+    <div style="background:var(--blanco);border:1px solid var(--borde);border-radius:12px;overflow:hidden;margin-bottom:2.5rem;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;">
+        <div style="padding:2rem;">
+          <div style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--guinda-oscuro);margin-bottom:1rem;">🏛️ Palacio Municipal de Gómez Palacio</div>
+          <div class="ubi-row"><span class="ubi-row-icon">📍</span><span><strong>Av. Madero 100, Col. Centro</strong><br>Gómez Palacio, Durango, C.P. 35000</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">🕐</span><span>Lunes a Viernes: 8:00 – 15:00 hrs<br>Sábado y Domingo: Cerrado</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">☎</span><span>618-825-0911</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">🚌</span><span>Rutas 1, 4, 7 y 12 – Parada "Palacio Municipal"</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">🅿️</span><span>Estacionamiento público en Calle Juárez y Calle Madero</span></div>
+          <div style="margin-top:1rem;padding:1rem;background:var(--guinda-suave);border-radius:8px;">
+            <div style="font-size:0.75rem;font-weight:700;color:var(--guinda);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.6rem;">Dependencias en este edificio</div>
+            <div style="font-size:0.82rem;color:#555;line-height:1.8;">
+              🏛 Presidencia (Planta Alta) · 📜 Secretaría del Ayuntamiento · ⚖️ Sindicatura<br>
+              💰 Tesorería (PB Ala Norte) · 📋 Registro Civil (PB Ala Sur) · 🏗 Desarrollo Urbano
+            </div>
+          </div>
+          <a class="ubi-mapa-btn" style="margin-top:1rem;" href="https://maps.google.com/?q=Palacio+Municipal+Gomez+Palacio+Durango+Mexico" target="_blank">📍 Abrir en Google Maps</a>
+        </div>
+        <div>
+          <iframe
+            style="width:100%;height:100%;min-height:300px;border:none;border-radius:0 12px 12px 0;display:block;"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3499.8132!2d-103.4975!3d25.5672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86991cb9a1234567%3A0xabcdef!2sAv.%20Francisco%20I.%20Madero%2C%20G%C3%B3mez%20Palacio%2C%20Dgo.!5e0!3m2!1ses!2smx!4v1700000000001!5m2!1ses!2smx"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="seccion-eyebrow">Otras Oficinas</div>
+    <div class="seccion-titulo">Dependencias Descentralizadas</div>
+    <div class="seccion-divider"></div>
+
+    <div class="ubi-grid">
+      <div class="ubi-card">
+        <div class="ubi-card-top">
+          <div class="ubi-tipo">Obras y Servicios</div>
+          <div class="ubi-nombre">🏗️ Obras Públicas y Servicios Municipales</div>
+        </div>
+        <div class="ubi-card-body">
+          <div class="ubi-row"><span class="ubi-row-icon">📍</span><span>Calle Independencia 220, Col. Centro, Gómez Palacio, Dgo.</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">🕐</span><span>Lun–Vie 8:00–15:00 hrs</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">☎</span><span>618-825-2345 (Obras) · 618-825-3456 (Servicios)</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">🚌</span><span>Ruta 3 y 8 – Parada "Independencia"</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">🅿️</span><span>Estacionamiento propio (entrada por lateral)</span></div>
+          <a class="ubi-mapa-btn" href="https://maps.google.com/?q=Independencia+220+Gomez+Palacio+Durango" target="_blank">📍 Ver en Google Maps</a>
+        </div>
+      </div>
+      <div class="ubi-card">
+        <div class="ubi-card-top">
+          <div class="ubi-tipo">Seguridad Pública</div>
+          <div class="ubi-nombre">🛡️ Dirección de Seguridad Pública Municipal</div>
+        </div>
+        <div class="ubi-card-body">
+          <div class="ubi-row"><span class="ubi-row-icon">📍</span><span>Calle 20 de Noviembre 150, Col. Centro, Gómez Palacio, Dgo.</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">🕐</span><span>Oficinas: Lun–Vie 8:00–15:00 · Operativo: 24/7</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">☎</span><span>Emergencias: 618-825-5555 · Oficinas: 618-825-5500</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">🚨</span><span>Para emergencias inmediatas llama al <strong>911</strong></span></div>
+          <a class="ubi-mapa-btn" href="https://maps.google.com/?q=20+de+Noviembre+150+Gomez+Palacio+Durango" target="_blank">📍 Ver en Google Maps</a>
+        </div>
+      </div>
+      <div class="ubi-card">
+        <div class="ubi-card-top">
+          <div class="ubi-tipo">Asistencia Social</div>
+          <div class="ubi-nombre">❤️ DIF Municipal Gómez Palacio</div>
+        </div>
+        <div class="ubi-card-body">
+          <div class="ubi-row"><span class="ubi-row-icon">📍</span><span>Calle Guadalupe Victoria 500, Col. Centro, Gómez Palacio, Dgo.</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">🕐</span><span>Lun–Vie 8:00–15:00 hrs</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">☎</span><span>618-825-6789</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">🚌</span><span>Rutas 2 y 6 – Parada "Victoria"</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">♿</span><span>Acceso para personas con discapacidad</span></div>
+          <a class="ubi-mapa-btn" href="https://maps.google.com/?q=DIF+Municipal+Gomez+Palacio+Durango" target="_blank">📍 Ver en Google Maps</a>
+        </div>
+      </div>
+      <div class="ubi-card">
+        <div class="ubi-card-top">
+          <div class="ubi-tipo">Cultura y Educación</div>
+          <div class="ubi-nombre">🎓 Casa de Cultura Municipal</div>
+        </div>
+        <div class="ubi-card-body">
+          <div class="ubi-row"><span class="ubi-row-icon">📍</span><span>Av. Juárez 380, Col. Centro, Gómez Palacio, Dgo.</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">🕐</span><span>Lun–Vie 8:00–18:00 hrs · Sáb 9:00–14:00</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">☎</span><span>618-825-7890</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">🎨</span><span>Talleres de arte, música, danza, idiomas y más</span></div>
+          <a class="ubi-mapa-btn" href="https://maps.google.com/?q=Casa+de+Cultura+Gomez+Palacio+Durango" target="_blank">📍 Ver en Google Maps</a>
+        </div>
+      </div>
+      <div class="ubi-card">
+        <div class="ubi-card-top">
+          <div class="ubi-tipo">Salud y Ecología</div>
+          <div class="ubi-nombre">🏥 Centro de Salud Municipal</div>
+        </div>
+        <div class="ubi-card-body">
+          <div class="ubi-row"><span class="ubi-row-icon">📍</span><span>Calle Hidalgo 200, Col. Centro, Gómez Palacio, Dgo.</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">🕐</span><span>Lun–Vie 8:00–15:00 hrs (vacunación 8:00–13:00)</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">☎</span><span>618-825-8901</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">🐾</span><span>Vacunación antirrábica gratuita permanente</span></div>
+          <a class="ubi-mapa-btn" href="https://maps.google.com/?q=Hidalgo+200+Gomez+Palacio+Durango" target="_blank">📍 Ver en Google Maps</a>
+        </div>
+      </div>
+      <div class="ubi-card">
+        <div class="ubi-card-top">
+          <div class="ubi-tipo">Economía y Comercio</div>
+          <div class="ubi-nombre">💼 Dirección de Desarrollo Económico</div>
+        </div>
+        <div class="ubi-card-body">
+          <div class="ubi-row"><span class="ubi-row-icon">📍</span><span>Av. Juárez 350, Col. Centro, Gómez Palacio, Dgo.</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">🕐</span><span>Lun–Vie 8:00–15:00 hrs</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">☎</span><span>618-825-4567</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">💡</span><span>Asesoría gratuita para emprendedores y empresas</span></div>
+          <a class="ubi-mapa-btn" href="https://maps.google.com/?q=Juarez+350+Gomez+Palacio+Durango" target="_blank">📍 Ver en Google Maps</a>
+        </div>
+      </div>
+      <!-- NUEVO: Instituto de la Mujer en ubicaciones -->
+      <div class="ubi-card">
+        <div class="ubi-card-top" style="background:linear-gradient(135deg,#6B1240,#A03060);">
+          <div class="ubi-tipo">Género e Igualdad</div>
+          <div class="ubi-nombre">♀️ Instituto Municipal de la Mujer</div>
+        </div>
+        <div class="ubi-card-body">
+          <div class="ubi-row"><span class="ubi-row-icon">📍</span><span>Av. Juárez 390, Col. Centro, Gómez Palacio, Dgo.</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">🕐</span><span>Lun–Vie 8:00–16:00 hrs</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">☎</span><span>618-825-9100 · Línea de crisis: 618-825-9111 (24 hrs)</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">🤝</span><span>Asesoría jurídica, psicológica y trabajo social</span></div>
+          <div class="ubi-row"><span class="ubi-row-icon">♿</span><span>Acceso para personas con discapacidad</span></div>
+          <a class="ubi-mapa-btn" style="color:#8B2252;border-color:rgba(139,34,82,0.3);" href="https://maps.google.com/?q=Instituto+Municipal+de+la+Mujer+Gomez+Palacio+Durango" target="_blank">📍 Ver en Google Maps</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════ NOTICIAS ═══════════════════ -->
+<div id="page-noticias" class="page">
+  <div class="page-hero">
+    <div class="page-hero-eyebrow">Comunicación Institucional</div>
+    <h1>📰 Noticias y Eventos</h1>
+    <p>Entérate de las acciones, obras y programas del gobierno municipal de Gómez Palacio.</p>
+  </div>
+  <section class="seccion">
+    <div class="noticias-grid">
+      <div class="noticia-card">
+        <div class="noticia-img" style="background:linear-gradient(135deg,#6B1A35,#8B2242);">🏗️</div>
+        <div class="noticia-body">
+          <div class="noticia-fecha">12 de Mayo, 2025</div>
+          <div class="noticia-titulo">Inicia pavimentación de 15 calles en colonias populares</div>
+          <div class="noticia-desc">El municipio arrancó trabajos en colonias Revolución, Lázaro Cárdenas y Valle Verde con una inversión de $18.5 millones de pesos.</div>
+        </div>
+      </div>
+      <div class="noticia-card">
+        <div class="noticia-img" style="background:linear-gradient(135deg,#1A4A7A,#2563AB);">💧</div>
+        <div class="noticia-body">
+          <div class="noticia-fecha">8 de Mayo, 2025</div>
+          <div class="noticia-titulo">Nuevo pozo de agua potable beneficia a 3,200 familias</div>
+          <div class="noticia-desc">En coordinación con SIDEAPA, el nuevo pozo garantiza el abasto para la zona norte del municipio durante todo el año.</div>
+        </div>
+      </div>
+      <div class="noticia-card">
+        <div class="noticia-img" style="background:linear-gradient(135deg,#1A7A4A,#28A060);">🌳</div>
+        <div class="noticia-body">
+          <div class="noticia-fecha">5 de Mayo, 2025</div>
+          <div class="noticia-titulo">Reforestación: 1,200 árboles plantados en parques</div>
+          <div class="noticia-desc">Con la participación de 500 ciudadanos voluntarios, se reforestaron 8 parques y camellones en el municipio.</div>
+        </div>
+      </div>
+      <div class="noticia-card">
+        <div class="noticia-img" style="background:linear-gradient(135deg,#C9A84C,#E8D5A0);">🎓</div>
+        <div class="noticia-body">
+          <div class="noticia-fecha">30 de Abril, 2025</div>
+          <div class="noticia-titulo">Becas municipales: 800 jóvenes recibirán apoyo este ciclo</div>
+          <div class="noticia-desc">El programa de becas del DIF Municipal amplía cobertura. Inscripciones abiertas hasta el 31 de mayo en la Casa de Cultura.</div>
+        </div>
+      </div>
+      <div class="noticia-card">
+        <div class="noticia-img" style="background:linear-gradient(135deg,#7A1A6B,#A02890);">🏃</div>
+        <div class="noticia-body">
+          <div class="noticia-fecha">25 de Abril, 2025</div>
+          <div class="noticia-titulo">Carrera 5K "Gómez Palacio 
